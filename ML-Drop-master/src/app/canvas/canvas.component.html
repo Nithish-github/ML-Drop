@@ -1,0 +1,6 @@
+<app-nav-bar></app-nav-bar>
+<div class="example-boundary">
+  @for(block of blockList; track block.id){
+  <app-block [blockId]="block.id" id="control_{{ block.id }}"></app-block>
+  }
+</div>
