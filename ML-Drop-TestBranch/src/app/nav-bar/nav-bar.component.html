@@ -2,5 +2,9 @@
   <div class="button-wrapper">
     <button type="button" (click)="deleteAllBlock()">Delete_All</button>
     <button type="button" (click)="addBlock()">Add</button>
+    <button mat-button [matMenuTriggerFor]="menu" #menuTrigger>Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="openDialog()">Open dialog</button>
+    </mat-menu>
   </div>
 </div>

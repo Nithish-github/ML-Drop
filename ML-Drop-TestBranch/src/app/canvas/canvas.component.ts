@@ -4,35 +4,29 @@ import { Block } from '../models/block';
 import { BlockManagerService } from '../service/block-manager.service';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { jsPlumbInstance } from 'jsplumb';
-
 import { ExampleService } from '../service/example.service';
+import { HttpClient } from '@angular/common/http';
 
-
-
- 
 @Component({
   selector: 'app-canvas',
   standalone: true,
   imports: [BlockComponent, NavBarComponent],
   templateUrl: './canvas.component.html',
   styleUrl: './canvas.component.scss',
+  providers: [HttpClient],
 })
 export class CanvasComponent implements OnInit, AfterViewInit {
   public numberOfBlock: number = 0;
   public blockList: Block[] = [];
-  data: any;
+  public data: string = '';
 
-  constructor(private _blockManagerService: BlockManagerService , private exampleService: ExampleService) {
+  constructor(
+    private _blockManagerService: BlockManagerService,
+    private exampleService: ExampleService
+  ) {
     this.blockList = [...this._blockManagerService.blockList];
   }
   ngOnInit(): void {
-
-    this.exampleService.getExampleData().subscribe(
-      (response)=> {
-      this.data = response;
-      console.log(this.data);
-    })
-    
     this.numberOfBlock = this.blockList.length;
     this._blockManagerService.$isBlockUpdateAvailable.subscribe(
       (isupdateAvailable) => {
@@ -41,6 +35,11 @@ export class CanvasComponent implements OnInit, AfterViewInit {
         }
       }
     );
+
+    this.exampleService.getExampleData().subscribe((res: string) => {
+      this.data = res;
+      console.log(this.data);
+    });
   }
 
   public ngAfterViewInit(): void {
