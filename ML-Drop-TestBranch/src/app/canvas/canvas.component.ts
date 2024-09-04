@@ -38,6 +38,7 @@ export class CanvasComponent implements OnInit, AfterViewInit {
 
     this.exampleService.getExampleData().subscribe((res: string) => {
       this.data = res;
+      // in the console log it is getting printed
       console.log(this.data);
     });
   }
