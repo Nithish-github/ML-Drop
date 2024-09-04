@@ -56,11 +56,13 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       // // Assign the image data to the first block (or create a new block)
       if (this.blockList.length > 0) {
         this.blockList[0].imagedata = this.data;
-      } else {
-        const newBlock = new Block();
-        newBlock.imagedata = this.data;
-        this.blockList.push(newBlock);
-      }
+      } 
+      
+      // else {
+      // //   const newBlock = new Block();
+      // //   newBlock.imagedata = this.data;
+      // //   this.blockList.push(newBlock);
+      // // }
 
     });
   }
