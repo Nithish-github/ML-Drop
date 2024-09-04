@@ -7,6 +7,13 @@ import { jsPlumbInstance } from 'jsplumb';
 import { ExampleService } from '../service/example.service';
 import { HttpClient } from '@angular/common/http';
 
+
+interface ExampleResponse {
+  message: string;
+  image_data: string; // Base64 encoded image data
+}
+
+
 @Component({
   selector: 'app-canvas',
   standalone: true,
@@ -15,6 +22,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrl: './canvas.component.scss',
   providers: [HttpClient],
 })
+
+
 export class CanvasComponent implements OnInit, AfterViewInit {
   public numberOfBlock: number = 0;
   public blockList: Block[] = [];
@@ -36,10 +45,23 @@ export class CanvasComponent implements OnInit, AfterViewInit {
       }
     );
 
-    this.exampleService.getExampleData().subscribe((res: string) => {
-      this.data = res;
+    this.exampleService.getExampleData().subscribe((res: ExampleResponse) => {
+
+      
+      this.data = res.image_data;
       // in the console log it is getting printed
       console.log(this.data);
+
+
+      // // Assign the image data to the first block (or create a new block)
+      if (this.blockList.length > 0) {
+        this.blockList[0].imagedata = this.data;
+      } else {
+        const newBlock = new Block();
+        newBlock.imagedata = this.data;
+        this.blockList.push(newBlock);
+      }
+
     });
   }
 

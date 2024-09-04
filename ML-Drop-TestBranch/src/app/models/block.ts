@@ -5,4 +5,5 @@ export class Block {
   public name!: string;
   public type!: BlockType;
   public position = { x: 0, y: 0 };
+  public imagedata?:string;
 }
